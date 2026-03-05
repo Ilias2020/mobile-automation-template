@@ -68,7 +68,7 @@ TODO: уточнить package root проекта (com.company.mobile / дру�
 systemProperty("runMobile", System.getProperty("runMobile", "false"))
 
 ### 5.2 Команда запуска одного теста
-.\gradlew clean test -DrunMobile=true --tests "com.company.mobile.tests.LoginNegativeTest"
+.\gradlew clean test -DrunMobile=true --tests "com.company.mobile.tests.auth.LoginNegativeTest"
 
 TODO: уточнить точный package теста в команде
 

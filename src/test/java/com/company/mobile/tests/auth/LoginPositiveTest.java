@@ -1,4 +1,4 @@
-package com.company.mobile.tests;
+package com.company.mobile.tests.auth;
 
 import com.company.mobile.core.BaseTest;
 import com.company.mobile.pages.AuthChoicePage;
