@@ -1,4 +1,4 @@
-package helper;
+package com.company.mobile.helper;
 
 import io.appium.java_client.AppiumDriver;
 import lombok.Setter;

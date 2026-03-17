@@ -1,7 +1,8 @@
-package screen;
+package com.company.mobile.screen;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
@@ -15,15 +16,31 @@ import java.util.Collections;
 
 public class BaseScreen {
     protected AppiumDriver driver;
+    protected static final int TIMEOUT = 15;
 
     public BaseScreen(AppiumDriver driver) {
         this.driver = driver;
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
 
-    public void waitUntilElementIsVisible(WebElement element) {
-        WebDriverWait wait =new WebDriverWait(driver, Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.visibilityOf(element));
+    protected void click(By locator) {
+        waitUntilElementIsVisible(locator);
+        driver.findElement(locator).click();
+    }
+
+    protected boolean isElementDisplayed(By locator) {
+        return !driver.findElements(locator).isEmpty()
+                && driver.findElement(locator).isDisplayed();
+    }
+
+    protected void waitUntilElementIsVisible(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    protected void waitUntilElementIsClickable(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT));
+        wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
     public void tapByCoordinate(int x, int y) {

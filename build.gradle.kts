@@ -33,7 +33,7 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.25.3")
     testImplementation("org.assertj:assertj-core:3.27.7")
 
-    testImplementation("io.qameta.allure:allure-testng:2.29.1")
+    implementation("io.qameta.allure:allure-testng:2.29.1")
 
     compileOnly("org.projectlombok:lombok:1.18.44")
     annotationProcessor("org.projectlombok:lombok:1.18.44")
