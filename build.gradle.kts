@@ -25,26 +25,38 @@ allure {
 }
 
 dependencies {
-    // framework (src/main/java)
     implementation("io.appium:java-client:9.4.0")
     implementation("org.seleniumhq.selenium:selenium-java:4.33.0")
-    implementation("org.testng:testng:7.11.0")
+    testImplementation("org.testng:testng:7.11.0")
+    implementation("org.apache.logging.log4j:log4j-core:2.25.3")
+    implementation("org.apache.logging.log4j:log4j-api:2.25.3")
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.25.3")
+    testImplementation("org.assertj:assertj-core:3.27.7")
 
-    // tests (src/test/java)
     testImplementation("io.qameta.allure:allure-testng:2.29.1")
-    // Лёгкая реализация SLF4J, чтобы убрать warning и видеть логи
-    testRuntimeOnly("org.slf4j:slf4j-simple:2.0.13")
+
+    compileOnly("org.projectlombok:lombok:1.18.44")
+    annotationProcessor("org.projectlombok:lombok:1.18.44")
+
+    testCompileOnly("org.projectlombok:lombok:1.18.44")
+    testAnnotationProcessor("org.projectlombok:lombok:1.18.44")
 }
 
 tasks.test {
     useTestNG()
 
     testLogging {
+        events ("passed", "skipped", "failed", "standardOut", "standardError")
         showStandardStreams = true
-        // showStandardStreams = true — разрешаем выводить System.out / System.err в консоль Gradle
-        // Без этого Gradle скрывает println из тестов
-    }
 
+    }
     // Пробрасываем -DrunMobile=true из Gradle в JVM, где выполняются тесты
     systemProperty("runMobile", providers.systemProperty("runMobile").orElse("false").get())
+}
+configurations.configureEach {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.slf4j") {
+            useVersion("1.7.32")
+        }
+    }
 }
