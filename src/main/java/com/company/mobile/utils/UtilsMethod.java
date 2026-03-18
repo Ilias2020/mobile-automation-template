@@ -16,4 +16,8 @@ public class UtilsMethod {
             throw new RuntimeException("Couldn't load 'config.properties' files", e);
         }
     }
+
+    public static String get(String key) {
+        return properties.getProperty(key);
+    }
 }
